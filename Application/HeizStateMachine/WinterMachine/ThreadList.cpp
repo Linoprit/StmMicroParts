@@ -5,8 +5,7 @@
  *      Author: harald
  */
 
-#include <HeizScheduler/ThreadList.h>
-
+#include "ThreadList.h"
 
 
 ThreadList::ThreadList(uint8_t length) {
@@ -14,10 +13,14 @@ ThreadList::ThreadList(uint8_t length) {
 	_threadQueue = new SimpleQueue<int8_t>(_length);
 	_threads  	 = new ThreadBasis[_length];
 
-	for(uint8_t i=0; i < _length; i++)
-	{
+	for(uint8_t i=0; i < _length; i++) {
 		_threads[i].initialize(_threadQueue, i);
 	}
+}
+
+ThreadList::~ThreadList() {
+	delete[] _threads;
+	delete _threadQueue;
 }
 
 ThreadBasis* ThreadList::get (uint8_t pos) {
@@ -25,6 +28,4 @@ ThreadBasis* ThreadList::get (uint8_t pos) {
 		return &_threads[pos];
 	else
 		throw ThreadListOutOfBoundsExeption();
-
-
 }

@@ -5,25 +5,26 @@
  *      Author: harald
  */
 
+#include <HeizStateMachine/WinterMachine/ThreadingScheduler.h>
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include <string.h>
 
-#include "../../../Application/HeizScheduler/HeizScheduler.h"
-#include "../../../Framework/Instances/Common.h"
+#include <Instances/Common.h>
+
 
 using ::testing::Expectation;
 
 #define MIN2MS(x) (x*60*1000)
 
-void do_cycle(HeizScheduler& scheduler, uint16_t count)
+void do_cycle(ThreadingScheduler& scheduler, uint16_t count)
 {
 	for(uint16_t i=0; i < count; i++) {
 		scheduler.cycle();
 	}
 }
 
-void do_loop(HeizScheduler& scheduler, uint32_t time_ms) {
+void do_loop(ThreadingScheduler& scheduler, uint32_t time_ms) {
 	uint32_t tick = Common::get_tick();
 
 	for (uint32_t i=0; i < time_ms; i++) {
@@ -32,7 +33,7 @@ void do_loop(HeizScheduler& scheduler, uint32_t time_ms) {
 	}
 }
 
-void dump_times(HeizScheduler& scheduler) {
+void dump_times(ThreadingScheduler& scheduler) {
 	for (uint8_t i=0; i < scheduler.get_threadListlen(); i++) {
 
 		std::string state;
@@ -68,7 +69,7 @@ TEST(TC_HeizScheduler, many_cycles) {
 	Common::set_tick_faking(true);
 	Common::set_fakeTick(100u);
 
-	HeizScheduler heizScheduler(3);
+	ThreadingScheduler heizScheduler(3);
 	heizScheduler.set_tactiveMax(0, MIN2MS(2));
 	heizScheduler.set_tpauseMax (0, MIN2MS(10));
 	heizScheduler.set_tactiveMax(1, MIN2MS(3));
@@ -105,7 +106,7 @@ TEST(TC_HeizScheduler, requeuing) {
 	Common::set_tick_faking(true);
 	Common::set_fakeTick(100u);
 
-	HeizScheduler heizScheduler(2);
+	ThreadingScheduler heizScheduler(2);
 	heizScheduler.set_tactiveMax(0, MIN2MS(2));
 	heizScheduler.set_tpauseMax (0, MIN2MS(2));
 	heizScheduler.set_tactiveMax(1, MIN2MS(2));
@@ -150,7 +151,7 @@ TEST(TC_HeizScheduler, values) {
 	Common::set_tick_faking(true);
 	Common::set_fakeTick(100u);
 
-	HeizScheduler heizScheduler(2);
+	ThreadingScheduler heizScheduler(2);
 	heizScheduler.set_tactiveMax(0, MIN2MS(4u));
 	heizScheduler.set_tpauseMax (0, MIN2MS(10u));
 	heizScheduler.set_tactiveMax(1, MIN2MS(2u));

@@ -5,11 +5,12 @@
  *      Author: harald
  */
 
+#include <HeizStateMachine/WinterMachine/ThreadingScheduler.h>
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#include "../../../Application/HeizScheduler/HeizScheduler.h"
-#include "../../../Framework/Instances/Common.h"
+#include <Instances/Common.h>
+
 
 using ::testing::Expectation;
 

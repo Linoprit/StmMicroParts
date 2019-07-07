@@ -5,11 +5,11 @@
  *      Author: harald
  */
 
-#ifndef HEIZSCHEDULER_THREADLIST_H_
-#define HEIZSCHEDULER_THREADLIST_H_
+#ifndef HEIZSTATEMACHINE_THREADLIST_H_
+#define HEIZSTATEMACHINE_THREADLIST_H_
 
-#include <stdint.h>
 #include "ThreadBasis.h"
+#include <stdint.h>
 
 
 class ThreadListOutOfBoundsExeption: public exception {
@@ -19,12 +19,10 @@ public:
 	}
 };
 
-//#define NUM_OF_THREADS 2u // how many threads to create
-
 class ThreadList {
 public:
 	ThreadList(uint8_t length);
-	virtual ~ThreadList() {};
+	virtual ~ThreadList();
 
 	uint8_t len(void) { return _length; };
 	ThreadBasis* get (uint8_t pos);
@@ -37,4 +35,4 @@ private:
 	ThreadBasis* 		 _threads;
 };
 
-#endif /* HEIZSCHEDULER_THREADLIST_H_ */
+#endif /* HEIZSTATEMACHINE_THREADLIST_H_ */

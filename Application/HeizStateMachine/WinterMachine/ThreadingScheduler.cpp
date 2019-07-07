@@ -5,15 +5,15 @@
  *      Author: harald
  */
 
-#include <HeizScheduler/HeizScheduler.h>
+#include "ThreadingScheduler.h"
 
-HeizScheduler::HeizScheduler(uint8_t threadCount) :
+ThreadingScheduler::ThreadingScheduler(uint8_t threadCount) :
 _threadList(threadCount)
 {
 	_lastActiveThread = -1;
 }
 
-void HeizScheduler::cycle(void) {
+void ThreadingScheduler::cycle(void) {
 	// cycle all tasks
 	bool oneTaskIsActive = false;
 	for (uint8_t i=0; i < _threadList.len(); i++) {
@@ -41,7 +41,7 @@ void HeizScheduler::cycle(void) {
 	}
 }
 
-int8_t HeizScheduler::get_active_thread(void)
+int8_t ThreadingScheduler::get_active_thread(void)
 {
 	int8_t result = -1;
 
@@ -58,38 +58,38 @@ int8_t HeizScheduler::get_active_thread(void)
 	return result;
 }
 
-void HeizScheduler::set_tactiveMax (int8_t threadNo, uint32_t tactive){
+void ThreadingScheduler::set_tactiveMax (int8_t threadNo, uint32_t tactive){
 	ThreadBasis* thread = _threadList.get(threadNo);
 	thread->set_tactiveMax(tactive);
 }
 
-void HeizScheduler::set_tpauseMax  (int8_t threadNo, uint32_t tpause){
+void ThreadingScheduler::set_tpauseMax  (int8_t threadNo, uint32_t tpause){
 	ThreadBasis* thread = _threadList.get(threadNo);
 	thread->set_tpauseMax(tpause);
 }
 
-uint32_t HeizScheduler::get_tactiveMax (int8_t threadNo) {
+uint32_t ThreadingScheduler::get_tactiveMax (int8_t threadNo) {
 	ThreadBasis* thread = _threadList.get(threadNo);
 	return thread->get_tactiveMax();
 }
 
-uint32_t HeizScheduler::get_tpauseMax  (int8_t threadNo){
+uint32_t ThreadingScheduler::get_tpauseMax  (int8_t threadNo){
 	ThreadBasis* thread = _threadList.get(threadNo);
 	return thread->get_tpauseMax();
 }
 
 
-uint32_t HeizScheduler::get_tactive (int8_t threadNo){
+uint32_t ThreadingScheduler::get_tactive (int8_t threadNo){
 	ThreadBasis* thread = _threadList.get(threadNo);
 	return thread->get_tactive();
 }
 
-uint32_t HeizScheduler::get_tpause  (int8_t threadNo){
+uint32_t ThreadingScheduler::get_tpause  (int8_t threadNo){
 	ThreadBasis* thread = _threadList.get(threadNo);
 	return thread->get_tpause();
 }
 
-ThreadBasis::enm_states HeizScheduler::get_state(int8_t threadNo) {
+StateMachineInterface::enm_states ThreadingScheduler::get_state(int8_t threadNo) {
 	ThreadBasis* thread = _threadList.get(threadNo);
 	return thread->get_state();
 }

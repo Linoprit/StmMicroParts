@@ -143,19 +143,6 @@ uint32_t ThreadBasis::time_diff(void)
 	return Common::get_tick() - _my_time;
 }
 
-void ThreadBasis::switch_state(enm_states state)
-{
-	_entry = true;
-	_act_state = state;
-}
 
-bool ThreadBasis::check_entry(void)
-{
-	if(_entry == true)	{
-		_entry = false;
-		return true;
-	}
-	return false;
-}
 
 

@@ -5,18 +5,18 @@
  *      Author: harald
  */
 
-#ifndef HEIZSCHEDULER_HEIZSCHEDULER_H_
-#define HEIZSCHEDULER_HEIZSCHEDULER_H_
+#ifndef HEIZSTATEMACHINE_HEIZSCHEDULER_H_
+#define HEIZSTATEMACHINE_HEIZSCHEDULER_H_
 
-#include "libraries/SimpleQueue.h"
 #include "ThreadBasis.h"
 #include "ThreadList.h"
+#include "libraries/SimpleQueue.h"
 
 
-class HeizScheduler {
+class ThreadingScheduler {
 public:
-	HeizScheduler(uint8_t threadCount);
-	virtual ~HeizScheduler() {};
+	ThreadingScheduler(uint8_t threadCount);
+	virtual ~ThreadingScheduler() {};
 
 	void cycle(void);
 	int8_t get_last_active_thread(void) { return _lastActiveThread; };
@@ -27,7 +27,7 @@ public:
 	uint32_t get_tpauseMax  (int8_t threadNo);
 	uint32_t get_tactive (int8_t threadNo);
 	uint32_t get_tpause  (int8_t threadNo);
-	ThreadBasis::enm_states get_state(int8_t threadNo);
+	StateMachineInterface::enm_states get_state(int8_t threadNo);
 	uint8_t  get_threadListlen(void) { return _threadList.len(); };
 
 private:
@@ -36,4 +36,4 @@ private:
 
 };
 
-#endif /* HEIZSCHEDULER_HEIZSCHEDULER_H_ */
+#endif /* HEIZSTATEMACHINE_HEIZSCHEDULER_H_ */

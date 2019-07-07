@@ -6,12 +6,13 @@
  */
 
 
+#include <HeizStateMachine/WinterMachine/ThreadBasis.h>
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#include "../../../Application/HeizScheduler/ThreadBasis.h"
-#include "../../../Framework/libraries/SimpleQueue.h"
-#include "../../../Framework/Instances/Common.h"
+#include <Instances/Common.h>
+#include <libraries/SimpleQueue.h>
+
 
 using ::testing::Expectation;
 
