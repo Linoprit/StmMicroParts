@@ -49,13 +49,11 @@
                                 								
                                 <option id="gnu.cpp.compiler.option.include.paths.179263879" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
                                     									
-                                    <listOptionValue builtIn="false" value="/home/harald/eclipse_workspaces/cpp/googletest/googlemock/include"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="/home/harald/eclipse_workspaces/cpp/googletest/googletest/include"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/Framework}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/Application}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/googletest}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -71,13 +69,11 @@
                                 								
                                 <option id="gnu.c.compiler.option.include.paths.420142860" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
                                     									
-                                    <listOptionValue builtIn="false" value="/home/harald/eclipse_workspaces/cpp/googletest/googlemock/include"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="/home/harald/eclipse_workspaces/cpp/googletest/googletest/include"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/Framework}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/Application}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/googletest}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -91,7 +87,7 @@
                                 								
                                 <option id="gnu.cpp.link.option.paths.1288009902" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
                                     									
-                                    <listOptionValue builtIn="false" value="/home/harald/eclipse_workspaces/cpp/googletest/mybuild/lib"/>
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/googletest}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -123,13 +119,11 @@
                                 								
                                 <option id="gnu.both.asm.option.include.paths.738857840" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
                                     									
-                                    <listOptionValue builtIn="false" value="/home/harald/eclipse_workspaces/cpp/googletest/googlemock/include"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="/home/harald/eclipse_workspaces/cpp/googletest/googletest/include"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/Framework}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/Application}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/StmMicroParts/googletest}&quot;"/>
                                     								
                                 </option>
                                 								
