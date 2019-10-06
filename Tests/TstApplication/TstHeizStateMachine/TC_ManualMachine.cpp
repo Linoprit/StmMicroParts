@@ -5,7 +5,7 @@
  *      Author: harald
  */
 
-#include <HeizStateMachine/ManualMachine/ManualMachineScheduler.h>
+#include <HeizStateMachine/StateManual/SchedulerManual.h>
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include <string.h>
@@ -21,7 +21,7 @@ TEST(TC_ManualMachine, simple_on_off) {
 	Common::set_fakeTick(100u);
 
 	const uint8_t nrOfInstances = 3;
-	ManualMachineScheduler manMachScheduler(nrOfInstances);
+	SchedulerManual manMachScheduler(nrOfInstances);
 	EXPECT_EQ(manMachScheduler.get_threadListlen(), nrOfInstances);
 
 	for (uint8_t i=0; i < nrOfInstances; i++) {

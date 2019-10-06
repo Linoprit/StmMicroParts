@@ -41,6 +41,10 @@ public:
   static void set_fakeTick (uint32_t val) { fakeTick   =  val; };
   static void add_fakeTick (uint32_t val) { fakeTick   += val; };
 
+  // testing interface for rtc
+
+
+
 private:
   static bool 	initIsDone;
   static bool	isFakeTick;

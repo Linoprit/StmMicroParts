@@ -8,15 +8,15 @@
 #ifndef HEIZSTATEMACHINE_HEIZSCHEDULER_H_
 #define HEIZSTATEMACHINE_HEIZSCHEDULER_H_
 
-#include "ThreadBasis.h"
-#include "ThreadList.h"
+#include "StateMachineWinter.h"
 #include "libraries/SimpleQueue.h"
+#include <HeizStateMachine/StateMachineList.h>
 
 
-class ThreadingScheduler {
+class SchedulerWinter {
 public:
-	ThreadingScheduler(uint8_t threadCount);
-	virtual ~ThreadingScheduler() {};
+	SchedulerWinter(uint8_t threadCount);
+	virtual ~SchedulerWinter() {};
 
 	void cycle(void);
 	int8_t get_last_active_thread(void) { return _lastActiveThread; };
@@ -27,11 +27,15 @@ public:
 	uint32_t get_tpauseMax  (int8_t threadNo);
 	uint32_t get_tactive (int8_t threadNo);
 	uint32_t get_tpause  (int8_t threadNo);
-	StateMachineInterface::enm_states get_state(int8_t threadNo);
-	uint8_t  get_threadListlen(void) { return _threadList.len(); };
+
+	StateMachineInterface::enm_states get_state(int8_t threadNo) {
+		StateMachineWinter* thread = _machineList.get(threadNo);
+		return thread->get_state();
+	}
+	uint8_t  get_threadListlen(void) { return _machineList.len(); };
 
 private:
-	ThreadList _threadList;
+	StateMachineList::MachineList<StateMachineWinter>  _machineList;
 	int8_t _lastActiveThread;
 
 };

@@ -16,12 +16,12 @@
 #define ONE_TICK 1
 
 
-class ThreadBasis: public StateMachineInterface {
+class StateMachineWinter: public StateMachineInterface {
 public:
 
-	ThreadBasis(void);
-	ThreadBasis(SimpleQueue<int8_t>* threadQueue_in, int8_t taksID);
-	virtual ~ThreadBasis() { };
+	StateMachineWinter(void);
+	StateMachineWinter(SimpleQueue<int8_t>* threadQueue_in, int8_t taksID);
+	virtual ~StateMachineWinter() { };
 
 	void 	   cycle(void);
 
@@ -34,16 +34,12 @@ public:
 
 	void initialize(SimpleQueue<int8_t>* threadQueue_in, int8_t taksID);
 
-	int8_t get_taskID(void)			{ return _taskID; };
-
 private:
 	uint32_t _my_time;   // [ms]
 	uint32_t _t_active;  // [ms]
 	uint32_t _t_pause;   // [ms]
-	uint8_t  _taskID;
 	uint32_t _t_activeMax; // [ms]
 	uint32_t _t_pauseMax;  // [ms]
-	SimpleQueue<int8_t>* threadQueue;
 
 	void initialize(void); // called by constructor
 

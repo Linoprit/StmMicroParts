@@ -5,20 +5,20 @@
  *      Author: harald
  */
 
-#include "ThreadBasis.h"
+#include "StateMachineWinter.h"
 #include <Instances/Common.h>
 
-ThreadBasis::ThreadBasis()
+StateMachineWinter::StateMachineWinter()
 {
 	initialize();
 }
 
-ThreadBasis::ThreadBasis(SimpleQueue<int8_t>* threadQueue_in, int8_t taskID)
+StateMachineWinter::StateMachineWinter(SimpleQueue<int8_t>* threadQueue_in, int8_t taskID)
 {
 	initialize(threadQueue_in, taskID);
 }
 
-void ThreadBasis::initialize(void) {
+void StateMachineWinter::initialize(void) {
 	_act_state 		= init;
 	_my_time   		= 0;
 	_t_active  		= 0;
@@ -31,7 +31,7 @@ void ThreadBasis::initialize(void) {
 	threadQueue     = NULL;
 }
 
-void ThreadBasis::initialize(SimpleQueue<int8_t>* threadQueue_in, int8_t taskID)
+void StateMachineWinter::initialize(SimpleQueue<int8_t>* threadQueue_in, int8_t taskID)
 {
 	initialize();
 	_taskID			= taskID;
@@ -39,7 +39,7 @@ void ThreadBasis::initialize(SimpleQueue<int8_t>* threadQueue_in, int8_t taskID)
 }
 
 
-void ThreadBasis::cycle(void)
+void StateMachineWinter::cycle(void)
 {
 	if (get_state() == init)
 		st_init();
@@ -51,7 +51,7 @@ void ThreadBasis::cycle(void)
 		st_ready();
 }
 
-void ThreadBasis::st_init(void)
+void StateMachineWinter::st_init(void)
 {
 	if(check_entry() == true) {
 		if((_taskID == -1) || (threadQueue == NULL)) {
@@ -64,7 +64,7 @@ void ThreadBasis::st_init(void)
 	}
 }
 
-void ThreadBasis::st_active(void)
+void StateMachineWinter::st_active(void)
 {
 	if(check_entry() == true) {
 		_my_time = Common::get_tick();
@@ -84,9 +84,14 @@ void ThreadBasis::st_active(void)
 	}
 }
 
-void ThreadBasis::st_ready(void)
+void StateMachineWinter::st_ready(void)
 {
 	if(check_entry() == true) {
+		// Entering st_ready means a full cylce is done, so we reset the times
+		// and start out for a new one - if _go becomes true.
+		_t_active = _t_activeMax;
+		_t_pause  = _t_pauseMax;
+
 		threadQueue->enqueue(_taskID);
 		_go = false;
 	}
@@ -94,11 +99,9 @@ void ThreadBasis::st_ready(void)
 	tr_ready_active();
 }
 
-void ThreadBasis::st_pause(void)
+void StateMachineWinter::st_pause(void)
 {
 	if(check_entry() == true) {
-		_t_active = _t_activeMax;
-		_t_pause  = _t_pauseMax;
 		_my_time  = Common::get_tick();
 	}
 
@@ -114,29 +117,29 @@ void ThreadBasis::st_pause(void)
 	}
 }
 
-void ThreadBasis::tr_active_pause(void)
+void StateMachineWinter::tr_active_pause(void)
 {
 	if (_t_active == 0 )
 		switch_state(pause);
 }
 
-void ThreadBasis::tr_active_ready(void)
+void StateMachineWinter::tr_active_ready(void)
 {
 	if (_go == false)
 		switch_state(ready);
 }
-void ThreadBasis::tr_pause_ready(void)
+void StateMachineWinter::tr_pause_ready(void)
 {
 	if (_t_pause == 0)
 		switch_state(ready);
 }
-void ThreadBasis::tr_ready_active(void)
+void StateMachineWinter::tr_ready_active(void)
 {
 	if (_go == true)
 		switch_state(active);
 }
 
-uint32_t ThreadBasis::time_diff(void)
+uint32_t StateMachineWinter::time_diff(void)
 {
 	if(_my_time > Common::get_tick())
 		return (UINT32_MAX - _my_time + Common::get_tick());

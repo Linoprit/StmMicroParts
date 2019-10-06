@@ -8,34 +8,35 @@
 #ifndef HEIZSTATEMACHINE_MANUALMACHINE_MANUALMACHINESCHEDULER_H_
 #define HEIZSTATEMACHINE_MANUALMACHINE_MANUALMACHINESCHEDULER_H_
 
-#include <HeizStateMachine/ManualMachine/ManualMachineList.h>
+#include <HeizStateMachine/StateManual/StateMachineManual.h>
 #include <HeizStateMachine/StateMachineInterface.h>
+#include <HeizStateMachine/StateMachineList.h>
 
 
-class ManualMachineScheduler {
+class SchedulerManual {
 public:
-	ManualMachineScheduler(uint8_t threadCount): _manualMachineList(threadCount) { };
-	virtual ~ManualMachineScheduler() {} ;
+	SchedulerManual(uint8_t threadCount): _machineList(threadCount) { };
+	virtual ~SchedulerManual() { };
 
 	void switch_on(int8_t threadNo) {
-		ManualMachineBasis* manualMachineBasis = _manualMachineList.get(threadNo);
+		StateMachineManual* manualMachineBasis = _machineList.get(threadNo);
 		manualMachineBasis->switch_on();
 	};
 
 	void switch_off(int8_t threadNo) {
-		ManualMachineBasis* manualMachineBasis = _manualMachineList.get(threadNo);
+		StateMachineManual* manualMachineBasis = _machineList.get(threadNo);
 		manualMachineBasis->switch_off();
 	};
 
 	StateMachineInterface::enm_states get_state(int8_t threadNo) {
-		ManualMachineBasis* manualMachineBasis = _manualMachineList.get(threadNo);
+		StateMachineManual* manualMachineBasis = _machineList.get(threadNo);
 		return manualMachineBasis->get_state();
 	}
 
-	uint8_t  get_threadListlen(void) { return _manualMachineList.len(); };
+	uint8_t  get_threadListlen(void) { return _machineList.len(); };
 
 private:
-	ManualMachineList _manualMachineList;
+	StateMachineList::MachineList<StateMachineManual> _machineList;
 
 };
 
