@@ -10,37 +10,20 @@
 #ifndef SIMPLEQUEUE_H_
 #define SIMPLEQUEUE_H_
 
-#include <iostream>
 #include <cstdlib>
-#include "../../Framework/System/uart_printf.h"
+#include <System/uart_printf.h>
+#include <System/Error_Handler.h>
 
 
-using namespace std;
-
-
-class QueueOverFlowException: public exception {
+template <class T, std::size_t _Nm = 1> class SimpleQueue {
 public:
-	virtual const char* what() const throw() {
-		return "Queue overflow";
-	}
-};
-
-class QueueEmptyException: public exception {
-public:
-	virtual const char* what() const throw() {
-		return "Queue empty";
-	}
-};
-
-template <class T> class SimpleQueue {
-public:
-	/*explicit SimpleQueue(void) {
-		_data 	= new T[1];
-		_maxSize = 1;
+	SimpleQueue(void) {
+		_data 	= new T[_Nm];
+		_maxSize = _Nm;
 		reset();
-	}*/
+	};
 
-	SimpleQueue(uint16_t maxSize) {
+	SimpleQueue(std::size_t maxSize) {
 		_data 	= new T[maxSize];
 		_maxSize = maxSize;
 		reset();
@@ -51,8 +34,9 @@ public:
 	};
 
 	void enqueue(T element) { // put element to back of queue
-		if (size() == _maxSize)
-			throw QueueOverFlowException();
+		if (size() == static_cast<int16_t>(_maxSize) ) {
+			error_handler(__FILE__, __LINE__ );
+		}
 
 		_size++;
 		increment(_rear);
@@ -60,8 +44,9 @@ public:
 	};
 
 	T dequeue(void) { // return element and remove it from queue
-		if ( isEmpty() )
-			throw QueueEmptyException();
+		if ( isEmpty() ) {
+			error_handler(__FILE__, __LINE__ );
+		}
 
 		_size--;
 		T ret = _data[_front];
@@ -84,8 +69,9 @@ public:
 	}
 
 	T front(void) { // look at first element w/o dequeueing
-		if ( isEmpty() )
-			throw QueueEmptyException();
+		if ( isEmpty() ) {
+			error_handler(__FILE__, __LINE__ );
+		}
 
 		return _data[_front];
 	};
@@ -102,10 +88,10 @@ private:
 	int16_t _front;
 	int16_t _rear;
 	int16_t _size;
-	uint8_t _maxSize;
+	std::size_t _maxSize;
 
 	void increment(int16_t &x) {
-		if (x == _maxSize - 1)
+		if (x == static_cast<int16_t>(_maxSize) - 1)
 			x = 0;
 		else
 			x++;

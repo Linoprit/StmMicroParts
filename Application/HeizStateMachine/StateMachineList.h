@@ -12,12 +12,13 @@
 #include <libraries/SimpleQueue.h>
 #include <cstdlib>
 #include <exception>
+#include <System/Error_Handler.h>
 
 
 
 namespace StateMachineList {
 
-class MachineListOutOfBoundsExeption: public exception {
+class MachineListOutOfBoundsExeption: public std::exception {
 public:
 	virtual const char* what() const throw() {
 		return "Pos out of ThreadList bounds.";
@@ -47,7 +48,11 @@ public:
 		if((pos < _length) && (pos >= 0))
 			return &_threads[pos];
 		else
-			throw MachineListOutOfBoundsExeption();
+		{
+			error_handler(__FILE__, __LINE__ );
+			return 0;
+			//throw MachineListOutOfBoundsExeption();
+		}
 	};
 
 	SimpleQueue<int8_t>* get_queue(void) { return _threadQueue; };

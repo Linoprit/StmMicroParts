@@ -12,8 +12,28 @@
 
 using ::testing::Expectation;
 
+TEST(SimpleQueue, enqueue2) {
 
-TEST(SimpleQueue, enqueue) {
+	constexpr uint16_t queueSize = 5;
+	SimpleQueue<uint16_t, queueSize> q;
+
+	EXPECT_TRUE(q.isEmpty());
+
+	q.enqueue(100);
+	q.enqueue(200);
+	q.enqueue(300);
+	q.enqueue(400);
+	q.enqueue(500);
+
+	EXPECT_EQ(100, q.dequeue());
+	EXPECT_EQ(200, q.dequeue());
+	EXPECT_EQ(300, q.dequeue());
+	EXPECT_EQ(400, q.dequeue());
+	EXPECT_EQ(500, q.dequeue());
+}
+
+
+TEST(SimpleQueue, enqueue1) {
 
 	uint16_t queueSize = 5;
 	SimpleQueue<uint16_t> q(queueSize);
@@ -142,7 +162,8 @@ TEST(SimpleQueue, exceptions) {
 	q.enqueue(300);
 	q.enqueue(400);
 
-	EXPECT_THROW(q.enqueue(500), QueueOverFlowException);
+	//EXPECT_THROW(q.enqueue(500), QueueOverFlowException);
+	EXPECT_THROW(q.enqueue(500), ErrorHandlerException);
 }
 
 TEST(SimpleQueue, classtype) {

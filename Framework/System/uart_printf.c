@@ -21,7 +21,7 @@
 
 /*int tx_printf(const char *format, ...)
 {
-
+	printf(format);
 	return 1;
 }*/
 

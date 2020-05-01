@@ -25,8 +25,14 @@ public:
 
 	void 	   cycle(void);
 
-	void set_tpauseMax(uint32_t value)  { _t_pauseMax  = value; }; // ms
-	void set_tactiveMax(uint32_t value) { _t_activeMax = value; }; // ms
+	void set_tpauseMax(uint32_t value)  {
+		_t_pauseMax  = value;
+		_t_pause     = value;
+	}; // ms
+	void set_tactiveMax(uint32_t value) {
+		_t_activeMax = value;
+		_t_active    = value;
+	}; // ms
 	uint32_t get_tpauseMax(void)  { return _t_pauseMax; }; // ms
 	uint32_t get_tactiveMax(void) { return _t_activeMax; }; // ms
 	uint32_t get_tactive (void) { return _t_active; };
